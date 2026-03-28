@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Behaviour-Based Login System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+:root {
+    --primary: #00d4ff;
+    --secondary: #0072ff;
+    --bg-dark: #000814;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.2);
+    --error: #ff4757;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    height:100vh;
+    background: radial-gradient(circle at center, #0f2027, #0a1a2f, var(--bg-dark));
+    color:white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow: hidden;
+}
+
+.header{
+    text-align:center;
+    margin-top:40px;
+    animation: fadeInDown 1s ease-out;
+}
+
+.header h1{ 
+    font-size:48px; 
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.header span{ 
+    color: var(--primary); 
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+}
+
+.subtitle{
+    color:#9fdfff;
+    margin-top:10px;
+    font-weight: 300;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap: 60px;
+    width:90%;
+    max-width: 1200px;
+    margin-top:60px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.glass{
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    border-radius:24px;
+    padding:40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 1px 1px var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card{ 
+    width:400px; 
+    position: relative;
+    overflow: hidden;
+}
+
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+}
+
+.login-card h2{ 
+    margin-bottom:25px; 
+    font-size: 28px;
+    text-align: center;
+}
+
+input{
+    width:100%;
+    padding:16px;
+    margin:15px 0;
+    border-radius:12px;
+    border: 1px solid transparent;
+    background:rgba(255, 255, 255, 0.08);
+    color:white;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input::placeholder{ color: rgba(255,255,255,0.4); }
+
+input:focus{
+    outline:none;
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+button{
+    width:100%;
+    padding:16px;
+    margin-top: 10px;
+    border:none;
+    border-radius:12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color:white;
+    font-weight:700;
+    font-size: 16px;
+    cursor:pointer;
+    transition: 0.4s;
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
+}
+
+button:hover{
+    transform: translateY(-2px);
+    box-shadow:0 8px 25px rgba(0, 212, 255, 0.6);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.features{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.feature-card{
+    width:350px;
+    padding: 25px;
+}
+
+.feature-card:hover{
+    transform: translateX(10px);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+}
+
+.icon{
+    font-size:32px;
+    color: var(--primary);
+    margin-bottom:15px;
+    display: block;
+}
+
+.alert{
+    margin-top:25px;
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+    font-weight: 500;
+}
+
+.error{
+    background: rgba(255, 71, 87, 0.15);
+    border: 1px solid var(--error);
+    color: var(--error);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Behaviour-Based <span>Login System</span></h1>
+    <div class="subtitle">
+        Adaptive Authentication Using Your Unique Behavior Patterns
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="glass login-card">
+        <h2>User Login</h2>
+
+        <form id="loginForm" method="POST" action="/login">
+
+            <input type="text" name="username"
+                   placeholder="Enter your username" required>
+
+            <input type="password" name="password" placeholder="••••••••" required>
+            
+            <div id="velocity-container" style="margin: -5px 0 20px 0; font-size: 12px; text-align: left; opacity: 0.8; height: 15px;">
+                <span id="velocity-label">Typing Velocity:</span>
+                <span id="velocity-speed" style="color: var(--primary); font-weight: bold;">0.00</span>
+                <span style="opacity: 0.5;">keys/sec</span>
+                <span id="velocity-status" style="margin-left: 10px; font-weight: 500;">(Waiting...)</span>
+            </div>
+
+            <!-- Hidden behavior data -->
+            <input type="hidden" name="keystroke_data" id="keystrokeData">
+            <input type="hidden" name="mouse_data" id="mouseData">
+
+            <button type="submit">Login</button>
+        </form>
+
+        {% if message %}
+        <div class="alert error">
+            {{ message }}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="features">
+
+        <div class="glass feature-card">
+            <i class="fas fa-keyboard icon"></i>
+            <h3>Keystroke Analysis</h3>
+            <p>Monitoring typing speed & patterns automatically.</p>
+        </div>
+
+        <div class="glass feature-card">
+            <i class="fas fa-computer-mouse icon"></i>
+            <h3>Mouse Movement</h3>
+            <p>Tracking mouse behavior & clicks in real time.</p>
+        </div>
+
+        <div class="glass feature-card">
+            <i class="fas fa-location-dot icon"></i>
+            <h3>Location & Timing</h3>
+            <p>Analyzing login time & session activity.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+// -----------------------------
+// IMPROVED TYPING TRACKING (Focus on Password)
+// -----------------------------
+
+let holdTimes = [];
+let intervals = [];
+let lastKeyTime = null;
+let totalKeys = 0;
+let keyDownTimes = {};
+
+const passwordInput = document.querySelector('input[type="password"]');
+
+passwordInput.addEventListener("focus", function() {
+    // Reset trackers when focusing the password to get a fresh "burst"
+    holdTimes = [];
+    intervals = [];
+    lastKeyTime = null;
+    totalKeys = 0;
+    keyDownTimes = {};
+});
+
+const velocitySpeed = document.getElementById("velocity-speed");
+const velocityStatus = document.getElementById("velocity-status");
+
+function updateVelocityDisplay(speed) {
+    if (!velocitySpeed || !velocityStatus) return;
+    velocitySpeed.innerText = speed.toFixed(2);
+    
+    if (speed >= 3.0) {
+        velocityStatus.innerText = "✓ NORMAL";
+        velocityStatus.style.color = "#00d4ff";
+    } else if (speed >= 1.0) {
+        velocityStatus.innerText = "⚠ HESITANT";
+        velocityStatus.style.color = "#ffb86c";
+    } else if (speed > 0) {
+        velocityStatus.innerText = "❗ SUSPICIOUS";
+        velocityStatus.style.color = "#ff4757";
+    }
+}
+
+passwordInput.addEventListener("keydown", function(e){
+    keyDownTimes[e.key] = Date.now();
+    totalKeys++;
+
+    if(lastKeyTime){
+        intervals.push(Date.now() - lastKeyTime);
+        
+        // Calculate real-time speed for UI
+        const totalGapTime = intervals.reduce((a,b)=>a+b,0) / 1000;
+        if (totalGapTime > 0) {
+            updateVelocityDisplay(totalKeys / totalGapTime);
+        }
+    }
+    lastKeyTime = Date.now();
+});
+
+// -----------------------------
+// MOUSE TRACKING
+// -----------------------------
+
+let totalDistance = 0;
+let lastX = null;
+let lastY = null;
+let totalClicks = 0;
+
+document.addEventListener("mousemove", function(e){
+    if(lastX !== null){
+        let dx = e.clientX - lastX;
+        let dy = e.clientY - lastY;
+        totalDistance += Math.sqrt(dx*dx + dy*dy);
+    }
+    lastX = e.clientX;
+    lastY = e.clientY;
+});
+
+document.addEventListener("click", function(){
+    totalClicks++;
+});
+
+// -----------------------------
+// BEFORE SUBMIT
+// -----------------------------
+
+document.getElementById("loginForm").addEventListener("submit", function(){
+
+    let avgHold =
+        holdTimes.reduce((a,b)=>a+b,0)/(holdTimes.length||1);
+
+    let avgDelay =
+        intervals.reduce((a,b)=>a+b,0)/(intervals.length||1);
+
+    // Typing speed: Total keys / Total time in seconds
+    let totalTimeSec = (intervals.reduce((a,b)=>a+b,0)/1000) || 0.1; 
+    let typingSpeed = totalKeys / totalTimeSec;
+
+    console.log("Captured Behavior:", {
+        hold: avgHold.toFixed(2),
+        delay: avgDelay.toFixed(2),
+        speed: typingSpeed.toFixed(2),
+        clicks: totalClicks,
+        dist: totalDistance.toFixed(2)
+    });
+
+    // Alert for user during manual testing
+    console.log(`>>> SENIOR DEV LOG: Your typing speed was ${typingSpeed.toFixed(2)} keys/sec.`);
+
+    document.getElementById("keystrokeData").value =
+        JSON.stringify({
+            average_hold_time: avgHold.toFixed(2),
+            average_delay_between_keys: avgDelay.toFixed(2),
+            typing_speed: typingSpeed.toFixed(2)
+        });
+
+    document.getElementById("mouseData").value =
+        JSON.stringify({
+            total_clicks: totalClicks,
+            total_mouse_distance: totalDistance.toFixed(2)
+        });
+
+});
+
+</script>
+
+</body>
+</html>
